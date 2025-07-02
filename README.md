@@ -1,6 +1,6 @@
-# Brahma AI Chatbot
+# Batao AI
 
-A modern, AI-powered chatbot built with Node.js and Express, supporting file attachments and persistent session history through a large language model backend.
+Batao AI is a smart, conversational AI assistant designed specifically for Indian users. It allows people to ask questions, seek help, and generate creative content in Hindi, English, Hinglish, or other Indian languages — making it more accessible and relatable for users across the country.
 
 ## Features
 
@@ -20,10 +20,10 @@ A modern, AI-powered chatbot built with Node.js and Express, supporting file att
 
 ```bash
 # Clone the repository
-git clone https://github.com/rawdiv/chatbot.git
+git clone https://github.com/rawdiv/batao.ai.git
 
 # Navigate into the project directory
-cd chatbot
+cd batao.ai
 
 # Install dependencies
 npm install
@@ -106,8 +106,8 @@ CMD ["node", "server-local.js"]
 Build and run the Docker image:
 
 ```bash
-docker build -t brahma-ai-chatbot .
-docker run -p 3000:3000 --env-file .env brahma-ai-chatbot
+docker build -t batao-ai .
+docker run -p 3000:3000 --env-file .env batao-ai
 ```
 
 ## Project Structure

@@ -3,69 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brahma AI</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Batao AI — India ka apna AI saathi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --card-bg: #161616;
+            --text: #F0F0F0;
+            --text-muted: #B0B0B0;
+            --accent: #F4B400;
+            --whatsapp: #25D366;
+            --border: #2A2A2A;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Poppins', 'Inter', Arial, sans-serif;
+            min-height: 100vh;
+            width: 100vw;
+            overflow-x: hidden;
+        }
+        body {
+            position: relative;
+            min-height: 100vh;
+            width: 100vw;
+        }
+        .india-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.10;
+            background: center/contain no-repeat url('https://upload.wikimedia.org/wikipedia/commons/6/6b/India_Map_Vector.svg');
+            animation: floatMap 8s ease-in-out infinite alternate;
+        }
+        @keyframes floatMap {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-18px) scale(1.03); }
+        }
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+            padding-top: 7vh;
+            padding-bottom: 3vh;
+        }
+        .hero h1 {
+            font-size: 2.7rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -1px;
+            margin-bottom: 0.7rem;
+            font-family: 'Poppins', 'Inter', Arial, sans-serif;
+            opacity: 0;
+            animation: fadeIn 1.2s 0.2s forwards;
+        }
+        .hero .subheading {
+            color: var(--text-muted);
+            font-size: 1.18rem;
+            font-weight: 400;
+            margin-bottom: 2.2rem;
+            max-width: 500px;
+            opacity: 0;
+            animation: fadeIn 1.2s 0.7s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .cta-btn {
+            background: var(--accent);
+            color: #161616;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 1em 2.5em;
+            font-size: 1.15rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: none;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            animation: fadeIn 1.2s 1.2s forwards;
+        }
+        .cta-btn:hover {
+            background: #ffd600;
+            transform: scale(1.04);
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 0 auto 2.5rem auto;
+            max-width: 900px;
+            z-index: 1;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards;
+        }
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
+        .feature-card:nth-child(4) { animation-delay: 0.8s; }
+        .feature-card:nth-child(5) { animation-delay: 1.0s; }
+        .feature-card:nth-child(6) { animation-delay: 1.2s; }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feature-card h3 {
+            color: var(--accent);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            font-family: 'Poppins', 'Inter', Arial, sans-serif;
+        }
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1.01rem;
+            font-weight: 400;
+            margin: 0;
+        }
+        .whatsapp-block {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin: 2.5rem auto 2rem auto;
+            max-width: 500px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .whatsapp-block .wa-cta {
+            background: var(--whatsapp);
+            color: #161616;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9em 2.2em;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 1.2rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.18s;
+            display: flex;
+            align-items: center;
+            gap: 0.7em;
+        }
+        .whatsapp-block .wa-cta:hover {
+            transform: scale(1.04);
+        }
+        .whatsapp-block .wa-subtext {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 0.2rem;
+        }
+        .about-section {
+            max-width: 700px;
+            margin: 2.5rem auto 2.5rem auto;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.13rem;
+            line-height: 1.7;
+        }
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin: 2.5rem 0 1.2rem 0;
+            border-top: 1px solid var(--border);
+            padding-top: 1.2rem;
+            letter-spacing: 0.01em;
+        }
+        .footer a { color: var(--accent); text-decoration: none; margin: 0 0.5em; }
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 2.1rem; }
+            .features { grid-template-columns: 1fr; gap: 1.1rem; }
+            .feature-card { min-width: 0; max-width: 100%; padding: 1.3rem 1rem; }
+            .main-content { padding: 0 0.2rem; }
+            .whatsapp-block { padding: 1.2rem 0.7rem; }
+        }
+        @media (max-width: 400px) {
+            .hero h1 { font-size: 1.3rem; }
+            .hero .subheading { font-size: 1rem; }
+            .cta-btn { font-size: 1rem; padding: 0.7em 1.2em; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="new-chat">
-                <button id="newChatBtn">
-                    <i class="fas fa-plus"></i>
-                    New Chat
-                </button>
+    <div class="india-bg"></div>
+    <div class="main-content">
+        <section class="hero">
+            <h1>Batao AI – <em style="font-style:normal; color:var(--accent);">India ka apna AI saathi</em></h1>
+            <div class="subheading">
+                Ask anything in Hindi, English, or your language — from daily doubts and homework help to AI images. No login needed.
             </div>
-            <div class="chat-history">
-                <!-- Chat history will be populated here -->
+            <a href="chat.html" class="cta-btn">Start Chatting</a>
+        </section>
+        <section class="features">
+            <div class="feature-card">
+                <h3>🌐 Multilingual Support</h3>
+                <p>Talk in Hindi, English, Hinglish, or your own language. Batao adapts.</p>
             </div>
-        </aside>
-        
-        <main class="main-content">
-            <div class="chat-header">
-                <div class="chat-title">Brahma AI</div>
-                <div class="header-actions">
-                    <button class="header-btn" id="newChatHeaderBtn" title="New Chat">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <button class="header-btn" id="optionsBtn" title="Options">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </button>
-                </div>
+            <div class="feature-card">
+                <h3>🎤 Voice Input</h3>
+                <p>Speak your question instead of typing. Simple and accessible.</p>
             </div>
-            
-            <div class="chat-container">
-                <div class="chat-messages" id="chatMessages">
-                    <!-- Messages will be populated here -->
-                </div>
-                <div class="input-container">
-                    <form id="chatForm">
-                        <div class="attachment-btn">
-                            <label for="fileInput" title="Attach a file">
-                                <i class="fas fa-paperclip"></i>
-                            </label>
-                            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png" style="display: none">
-                        </div>
-                        <textarea 
-                            id="userInput" 
-                            placeholder="Message..." 
-                            rows="1"
-                            autofocus
-                        ></textarea>
-                        <button type="submit" id="sendButton">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                    <div class="disclaimer">
-                        AI may produce inaccurate information about people, places, or facts.
-                    </div>
-                </div>
+            <div class="feature-card">
+                <h3>🖼️ Image Generation</h3>
+                <p>Describe an idea, get a custom AI image inside the chat.</p>
             </div>
-        </main>
+            <div class="feature-card">
+                <h3>🔒 No Login Needed</h3>
+                <p>Just open and start chatting. No signup, no friction.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🇮🇳 Made for Bharat</h3>
+                <p>Optimized for Indian users — fast, light, and culturally aware.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💬 WhatsApp Support</h3>
+                <p>Now available on WhatsApp. Chat like you normally do.</p>
+            </div>
+        </section>
+        <div class="whatsapp-block">
+            <a href="#" class="wa-cta"><span style="font-size:1.3em;">📱</span> Chat on WhatsApp</a>
+            <div class="wa-subtext">Available 24x7 — just like your friend</div>
+            <!-- Optional: <img src="qr-code.png" alt="WhatsApp QR" style="margin-top:1em; width:90px;"> -->
+        </div>
+        <div class="about-section">
+            Batao AI is India's own AI assistant — made to be simple, multilingual, and always available. Whether you're a student solving problems, a creator seeking inspiration, or anyone with a daily doubt, Batao listens and helps instantly.<br><br>
+            Chat in your language, speak or type, and get answers, images, or ideas — without logging in. Built with an India-first approach, it's designed to work on any device, any network, for anyone.
+        </div>
+        <footer class="footer">
+            © 2025 Batao AI • Built for Bharat.<br>
+            <a href="mailto:hello@batao.ai">hello@batao.ai</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms</a>
+        </footer>
     </div>
-    <script src="script.js"></script>
 </body>
 </html> 
