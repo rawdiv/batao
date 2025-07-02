@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.innerHTML = '';
         
         // Add custom welcome message
-        addMessage("Yo! I'm Brahma AI 😎\nLocally trained, crazy fast, and ready to help you build or automate whatever you're dreaming up.\nJust say the word and we'll cook something epic together 💻🚀", 'ai');
+        addMessage("Batao, kya poochhna hai ??", 'ai');
     }
 
     // Add message to chat
@@ -613,9 +613,6 @@ document.addEventListener('DOMContentLoaded', () => {
         addMessage('You are offline. Please check your internet connection.', 'system');
     });
     
-    // Add initial welcome message
-    addMessage("Yo! I'm Brahma AI 😎\nLocally trained, crazy fast, and ready to help you build or automate whatever you're dreaming up.\nJust say the word and we'll cook something epic together 💻🚀", 'ai');
-    
     // Add event listener for the header new chat button
     newChatHeaderBtn.addEventListener('click', async () => {
         if (isGenerating) return;
@@ -690,5 +687,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }),
     }).catch(error => {
         console.error('Error setting default instructions:', error);
+    });
+
+    // === DARK MODE TOGGLE ===
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    // Set initial mode from localStorage
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    });
+
+    // === FULLSCREEN TOGGLE ===
+    const fullscreenToggle = document.getElementById('fullscreenToggle');
+    fullscreenToggle.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    });
+
+    // === VOICE INPUT TOGGLE ===
+    const voiceModeToggle = document.getElementById('voiceModeToggle');
+    let recognition;
+    let isListening = false;
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            userInput.value += (userInput.value ? ' ' : '') + transcript;
+            userInput.focus();
+        };
+        recognition.onerror = (event) => {
+            addMessage('Voice recognition error: ' + event.error, 'system');
+        };
+        recognition.onend = () => {
+            isListening = false;
+            voiceModeToggle.classList.remove('active');
+        };
+    } else {
+        voiceModeToggle.disabled = true;
+        voiceModeToggle.title = 'Voice input not supported in this browser';
+    }
+    voiceModeToggle.addEventListener('click', () => {
+        if (!recognition) return;
+        if (isListening) {
+            recognition.stop();
+            isListening = false;
+            voiceModeToggle.classList.remove('active');
+        } else {
+            recognition.start();
+            isListening = true;
+            voiceModeToggle.classList.add('active');
+        }
     });
 }); 
